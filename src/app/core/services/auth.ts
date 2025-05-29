@@ -30,7 +30,6 @@ export class Auth {
     return success;
 
     /*
-    // REAL API CALL  (Commented Out)
 
     return this.http.post<AuthResponseData>(`${this.apiUrl}/login`, { username, password })
       .pipe(
@@ -41,10 +40,10 @@ export class Auth {
             if(response.userId) {
               localStorage.setItem('userId', response.userId);
             }
-            // You might want to store other user details from the response
+           
             console.log('Auth Service (API): Login successful, token stored.');
           } else {
-            // Handle cases where API indicates login failure but doesn't throw HTTP error
+           
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('authToken');
             localStorage.removeItem('userId');
@@ -52,7 +51,7 @@ export class Auth {
           }
         }),
         map(response => response.success), // Return true if API call was successful and login is valid
-        catchError(this.handleError)     // Handle HTTP errors
+        catchError(this.handleError)    
       );
     */
   }
