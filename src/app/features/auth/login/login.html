@@ -1,0 +1,68 @@
+<div class="relative min-h-screen h-full bg-cover bg-center" style="background-image: url('/loginbg.jpg');">
+    <div class="flex justify-center items-center h-screen">
+      <div class="bg-white/20 rounded-[60px] p-10 w-full max-w-xl shadow-2xl backdrop-blur-lg px-12 md:px-20">
+        <h2 class="text-center text-white text-4xl font-bold mb-8" style="text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);">Sign In</h2>
+
+        <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+          <div class="mb-6 relative">
+            <label for="year-select" class="sr-only">Select Year</label>
+            <select id="year-select" name="selectedYear" [(ngModel)]="selectedYear" class="w-full appearance-none rounded-xl p-3.5 font-semibold bg-white/90 text-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 placeholder-gray-500 text-sm">
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2023">2022</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </div>
+          </div>
+
+          <div class="mb-6 relative">
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" [(ngModel)]="username" name="username" id="username" placeholder="Enter Username" required
+                   class="w-full rounded-xl p-3.5 pr-10 italic font-semibold bg-white/90 text-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 placeholder-gray-500 text-sm" />
+            <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </span>
+          </div>
+
+          <div class="mb-6 relative">
+            <label for="password" class="sr-only">Password</label>
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password" id="password" placeholder="Enter Password" required
+                   class="w-full rounded-xl p-3.5 pr-10 font-semibold bg-white/90 text-sky-700 italic focus:outline-none focus:ring-2 focus:ring-sky-400 placeholder-gray-500 text-sm" />
+            <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-400 focus:outline-none px-1">
+              <svg *ngIf="!showPassword" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.022 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+              <svg *ngIf="showPassword" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074L3.707 2.293zM10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path><path d="M2 4.755A10.023 10.023 0 0110 3c4.478 0 8.268 2.943 9.542 7a10.023 10.023 0 01-2.017 3.191L2 4.755z"></path></svg>
+            </button>
+          </div>
+
+          <div class="mb-6 flex items-center">
+            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" id="remember" class="sr-only peer" />
+            <label for="remember" class="flex items-center cursor-pointer text-sm select-none">
+              <span class="w-5 h-5 inline-block mr-2 rounded-md border-2 border-sky-200 bg-white/30 peer-checked:bg-sky-500 peer-checked:border-sky-500 transition-colors duration-200 flex-shrink-0">
+                <svg class="w-full h-full p-0.5 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </span>
+              <span class="text-sky-100">Remember Me</span>
+            </label>
+          </div>
+
+          <button type="submit" [disabled]="loginForm.invalid || isLoading" class="w-full bg-sky-500 text-white font-bold py-3 rounded-xl hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-sky-800/50 shadow-lg hover:shadow-sky-500/40 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed ">
+            <span *ngIf="!isLoading">Sign In</span>
+            <span *ngIf="isLoading">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Signing In...
+            </span>
+          </button>
+
+           <div *ngIf="errorMessage" class="mt-4 p-3 bg-red-100/80 border border-red-400 text-red-700 rounded-lg text-sm text-center">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
